@@ -9,7 +9,9 @@ import java.util.Arrays;
 public class CursoAwsCdkApp {
     public static void main(final String[] args) {
         App app = new App();
-        new VpcStack(app, "Vpc");
+        VpcStack vpcStack = new VpcStack(app, "Vpc");
+        ECSClusterStack clusterStack = new ECSClusterStack(app, "Cluster", vpcStack.vpc);
+        clusterStack.addDependency(vpcStack);
         app.synth();
     }
 }
